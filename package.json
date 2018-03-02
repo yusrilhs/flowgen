@@ -1,0 +1,21 @@
+{
+  "name": "ndmail",
+  "version": "0.0.1",
+  "description": "Mail utility",
+  "main": "index.js",
+  "repository": "https://github.com/yusrilhs/ndmail.git",
+  "author": "Yusril Herlian Syah <yusrilhsyah@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.0.1"
+  },
+  "dependencies": {
+    "fancy-log": "^1.3.2",
+    "imap": "^0.8.19",
+    "mailparser": "^2.2.0",
+    "mkdirp": "^0.5.1",
+    "poplib": "^0.1.7"
+  }
+}
