@@ -17,6 +17,10 @@ ndmail.on('imap_error', function(err) {
   console.log(err)
 })
 
+ndmail.on('error', function(err) {
+  console.log(err)
+})
+
 ndmail.on('mail', function(msg) {
   console.log(msg)
 })
