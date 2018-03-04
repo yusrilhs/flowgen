@@ -62,8 +62,8 @@ NdMail.prototype.fetchMessage = function(uid, flag) {
     if (err) {
       throw err
     } else {
-      let patt = (box) ? (uid + ':' + box.uidnext) : (uid + ':*')
-        , fetch = _this.imap.fetch(patt, { bodies: '', struct: true })
+      let pattern = (box) ? (uid + ':' + box.uidnext) : (uid + ':*')
+        , fetch = _this.imap.fetch(pattern, { bodies: '', struct: true })
 
       fetch.on('message', function(msg, seqno) {
         let rawMsg = new Buffer('')
@@ -214,6 +214,18 @@ NdMail.prototype.createAttachment = function(fileName, data) {
   attachment.contentType = 'attachment'
 
   return attachment
+}
+
+/**
+ * Send email
+ * @param {Object} opts 
+ */
+NdMail.prototype.sendMail = function(opts) {
+  this.smtp.sendMail(opts, function(err, info) {
+    if (err) {
+      this.emit('error', err)
+    }
+  })
 }
 
 /** 
