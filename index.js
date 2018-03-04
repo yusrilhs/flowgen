@@ -16,9 +16,7 @@ module.exports = NdMail
  * @param {Object} opts 
  */
 function NdMail(opts) {
-  this.isReady = false 
   this.expectNextImapUid = 1
-  this.fetchMailCb = null
   
   util.inherits(NdMail, EventEmitter)
 
