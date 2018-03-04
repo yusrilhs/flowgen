@@ -97,7 +97,13 @@ NdMail.prototype.fetchMessage = function(uid, flag) {
       })
 
       fetch.on('end', function() {
-        _this.imap.on('mail', bind(_this.imapNewMail, _this))
+        _this.imap.closeBox(true, function(err) {
+          if (err) {
+            _this.emit('error', err)
+          } else {
+            _this.imap.once('mail', bind(_this.imapNewMail, _this))
+          }
+        })
       })
 
       fetch.on('error', function(err) {
