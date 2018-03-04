@@ -62,8 +62,8 @@ NdMail.prototype.fetchMessage = function(uid, flag) {
     if (err) {
       throw err
     } else {
-      
-      let fetch = _this.imap.fetch(uid + ':' + box.uidnext, { bodies: '', struct: true })
+      let patt = (box) ? (uid + ':' + box.uidnext) : (uid + ':*')
+        , fetch = _this.imap.fetch(patt, { bodies: '', struct: true })
 
       fetch.on('message', function(msg, seqno) {
         let rawMsg = new Buffer('')
@@ -97,13 +97,7 @@ NdMail.prototype.fetchMessage = function(uid, flag) {
       })
 
       fetch.on('end', function() {
-        _this.imap.closeBox(true, function(err) {
-          if (err) {
-            _this.emit('error', err)
-          } else {
-            _this.imap.once('mail', bind(_this.imapNewMail, _this))
-          }
-        })
+        _this.imap.once('mail', bind(_this.imapNewMail, _this))
       })
 
       fetch.on('error', function(err) {
@@ -117,7 +111,7 @@ NdMail.prototype.fetchMessage = function(uid, flag) {
  * Fetch new mail 
  */
 NdMail.prototype.imapNewMail = function() {
-  this.fetchMailFrom(this.expectLastImapUid)
+  this.fetchMessage(this.expectNextImapUid)()
 }
 
 /**
