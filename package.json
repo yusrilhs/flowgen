@@ -1,7 +1,7 @@
 {
   "name": "ndmail",
   "version": "0.0.1",
-  "description": "Mail utility",
+  "description": "Just a simple NodeJS email utility using imap and nodemailer.",
   "main": "index.js",
   "repository": "https://github.com/yusrilhs/ndmail.git",
   "author": "Yusril Herlian Syah <yusrilhsyah@gmail.com>",
@@ -13,7 +13,6 @@
   "dependencies": {
     "imap": "^0.8.19",
     "mailparser": "^2.2.0",
-    "mkdirp": "^0.5.1",
     "nodemailer": "^4.6.0"
   }
 }
