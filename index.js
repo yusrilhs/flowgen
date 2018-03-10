@@ -46,7 +46,7 @@ NdMail.prototype.connect = function(fn) {
 NdMail.prototype.fetchMailFrom = function(uid, flag) {
   flag = flag || 'ALL'
   
-  this.imap.openBox(this.opts.imap.inbox, true, this.fetchMessage(uid, flag))
+  this.imap.openBox(this.opts.imap.inbox, false, this.fetchMessage(uid, flag))
 }
 
 /**
@@ -147,6 +147,8 @@ NdMail.prototype.parseMessage = function(message, fn) {
       msg.references = parsedMail.references || []
       msg.date = parsedMail.date || parsedMail.receivedDate 
       msg.to = parsedMail.to.value || []
+      msg.inReplyTo = parsedMail.inReplyTo || ''
+      msg.attachments = []
       
       if (parsedMail.cc) {
         msg.cc = parsedMail.cc.value || []
@@ -155,9 +157,6 @@ NdMail.prototype.parseMessage = function(message, fn) {
       if (parsedMail.bcc) {
         msg.bcc = parsedMail.bcc.value || []
       }
-      
-      msg.inReplyTo = parsedMail.inReplyTo || ''
-      msg.attachments = []
       
       let attachments = parsedMail.attachments || []
 
@@ -223,6 +222,41 @@ NdMail.prototype.sendMail = function(opts) {
     if (err) {
       this.emit('error', err)
     }
+  })
+}
+
+/**
+ * Set flag mail as Seen
+ * @param {Number} uid 
+ */
+NdMail.prototype.markAsSeen = function(uid) {
+  this._markAs('\\Seen', uid)
+}
+
+/**
+ * Set flag mail as Flagged
+ * @param {Number} uid 
+ */
+NdMail.prototype.markAsFlagged = function(uid) {
+  this._markAs('\\Flagged', uid)
+}
+
+/**
+ * Set flag mail as Deleted
+ * @param {Number} uid 
+ */
+NdMail.prototype.markAsDeleted = function(uid) {
+  this._markAs('\\Deleted', uid)
+}
+
+/**
+ * Flag mail
+ * @param {String} flag 
+ * @param {Number} uid 
+ */
+NdMail.prototype._markAs = function(flag, uid) {
+  this.imap.addFlags(uid, [flag], function(err) {
+    if (err) this.emit('error', err)
   })
 }
 
