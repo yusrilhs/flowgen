@@ -27,6 +27,18 @@ This method is for fetching mail from imap. Email will fetched started with uid 
 
 This method is for sending mail. The options will passed to `nodemailer` transport. see at https://nodemailer.com/about/
 
+* `markAsSeen(uid)`
+
+Set flag `\Seen` to mail with the `uid`.
+
+* `markAsFlagged(uid)`
+
+Set flag `\Flagged` to mail with the `uid`.
+
+* `markAsDeleted(uid)`
+
+Set flag `\Deleted` to mail with the `uid`.
+
 ### Event
 
 * `imap_error`
@@ -74,6 +86,7 @@ ndmail.on('error', function(err) {
 })
 
 ndmail.on('mail', function(msg) {
+  ndmail.markAsSeen(msg.uid)
   console.log(msg)
 })
 
