@@ -1,6 +1,6 @@
 {
   "name": "ndmail",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "Just a simple NodeJS email utility using imap and nodemailer.",
   "main": "index.js",
   "repository": "https://github.com/yusrilhs/ndmail.git",
