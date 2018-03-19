@@ -45,5 +45,4 @@ ndmail.connect(function() {
       html: '<h1>Hello this is a mail from NdMail</h1>'
     })
   }
-  
 })
